@@ -2,7 +2,6 @@ const body = document.querySelector('body')
 const start = document.querySelector('button[data-start]');
 const stop = document.querySelector('button[data-stop]');
 
-
 start.addEventListener("click", () => {
   changeBgc = setInterval(() => {
     start.disabled = true;
