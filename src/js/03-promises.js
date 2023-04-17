@@ -38,6 +38,5 @@ function onCreatePromise(evt) {
           `❌ Rejected promise ${position} in ${delay}ms`,
         );
       });
-    evt.currentTarget.reset();
   }
 }
