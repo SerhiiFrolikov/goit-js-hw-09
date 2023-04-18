@@ -26,8 +26,6 @@ function onCreatePromise(evt) {
   let fieldAmount = Number(amount.value);
 
   for (let i = 1; i <= fieldAmount; i += 1) {
-    fieldDelay += fieldStep;
-
     createPromise(i, fieldDelay)
       .then(({ position, delay }) => {
         Notify.success(
@@ -39,5 +37,6 @@ function onCreatePromise(evt) {
           `❌ Rejected promise ${position} in ${delay}ms`,
         );
       });
+     fieldDelay += fieldStep;
   }
 }
