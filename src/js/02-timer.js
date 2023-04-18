@@ -6,10 +6,17 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 let intervalId = null;
 let selectedDate = null;
 let currentDate = null;
+let setBackTimer = null;
 
 const datetimePicker = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('[data-start]');
 startBtn.disabled = true;
+
+setBackTimer = () => {
+     timer.start();
+};
+
+startBtn.addEventListener('click', setBackTimer);
 
 flatpickr(datetimePicker, {
     enableTime: true,
@@ -20,37 +27,18 @@ flatpickr(datetimePicker, {
         if (selectedDates[0].getTime() < Date.now()) {
             Notify.failure('Please choose a date in the future');
     } else {
-        startBtn.disabled = false;
-        const setBackTimer = () => {
+            startBtn.disabled = false;
             selectedDate = selectedDates[0].getTime();
-            timer.start();
-        };
-        startBtn.addEventListener('click', setBackTimer);
         }
     },
 });
 
 const timer = {
     rootSelector: document.querySelector('.timer'),
-
     addLeadingZero(value) {
     return String(value).padStart(2, 0);
     },
-
-    convertMs(ms) {
-        const second = 1000;
-        const minute = second * 60;
-        const hour = minute * 60;
-        const day = hour * 24;
     
-        const days = Math.floor(ms / day);
-        const hours = Math.floor((ms % day) / hour);
-        const minutes = Math.floor(((ms % day) % hour) / minute);
-        const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-
-        return { days, hours, minutes, seconds };
-    },
-
     start() {
         intervalId = setInterval(() => {
             startBtn.disabled = true;
@@ -79,5 +67,20 @@ const timer = {
         this.intervalId = null;
         startBtn.disabled = true;
         datetimePicker.disabled = false;
+    },
+
+    convertMs(ms) {
+
+        const second = 1000;
+        const minute = second * 60;
+        const hour = minute * 60;
+        const day = hour * 24;
+    
+        const days = Math.floor(ms / day);
+        const hours = Math.floor((ms % day) / hour);
+        const minutes = Math.floor(((ms % day) % hour) / minute);
+        const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+
+        return { days, hours, minutes, seconds };
     },
 };
