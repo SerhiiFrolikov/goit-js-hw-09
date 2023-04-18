@@ -3,11 +3,12 @@ const start = document.querySelector('button[data-start]');
 const stop = document.querySelector('button[data-stop]');
 
 let changeBgc = null;
-let changeColor = getRandomHexColor();
+let changeColor = null;
 
 start.addEventListener("click", () => {
   changeBgc = setInterval(() => {
     start.disabled = true;
+    changeColor = getRandomHexColor();
     body.style.backgroundColor = changeColor;
   }, 1000);
 });
