@@ -3,18 +3,22 @@ const start = document.querySelector('button[data-start]');
 const stop = document.querySelector('button[data-stop]');
 
 let changeBgc = null;
+stop.disabled = true;
 
 start.addEventListener("click", () => {
   changeBgc = setInterval(() => {
     start.disabled = true;
+    stop.disabled = false;
+  
     let changeColor = getRandomHexColor();
     body.style.backgroundColor = changeColor;
   }, 1000);
 });
 
 stop.addEventListener("click", () => {
-    clearInterval(changeBgc);
-start.disabled = false;
+  clearInterval(changeBgc);
+    stop.disabled = true;
+    start.disabled = false;
 });
 
 function getRandomHexColor() {
